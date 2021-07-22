@@ -40,7 +40,7 @@ export default function IndexPage() {
       <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
         VSWR
       </div>
-      <div className='w-full pt-8 p-4'>
+      <div className='container max-w-screen-sm mx-auto w-full pt-8 p-4'>
         <Slider
           def={tx}
           label='進行波(W)'

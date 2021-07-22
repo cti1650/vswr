@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
         <Head>
           <style>{`body { margin: 0 } /* custom!*/`}</style>
         </Head>
-        <body className='custom_class container max-w-screen-sm mx-auto bg-gray-200'>
+        <body className='custom_class w-full bg-gray-200'>
           <Main />
           <NextScript />
         </body>
