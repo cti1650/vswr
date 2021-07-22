@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
+import MaterialSlider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
 
 export const Slider = (props) => {
   const {
@@ -12,8 +16,20 @@ export const Slider = (props) => {
     onChange = () => {},
   } = props;
   const [val, setVal] = useState(def);
-  const handleSliderChange = useCallback((e) => {
-    setVal(e.target.value);
+  const handleSliderChange = useCallback((e, val) => {
+    console.log(val);
+    setVal(val);
+  }, []);
+  const handleInputChange = useCallback((event) => {
+    setVal(event.target.value === '' ? '' : Number(event.target.value));
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    if (val < min) {
+      setVal(min);
+    } else if (val > max) {
+      setVal(max);
+    }
   }, []);
   useEffect(() => {
     onChange(val);
@@ -21,8 +37,12 @@ export const Slider = (props) => {
   return (
     <>
       <div className='w-full'>
-        <label for='slider'>{label}:</label>
-        <input
+        <Typography id='input-slider' gutterBottom>
+          {label}
+        </Typography>
+        <Grid container className='pt-8' spacing={2} alignItems='center'>
+          <Grid item xs>
+            {/* <input
           type='range'
           className='w-full h-10'
           defaultValue={val}
@@ -31,8 +51,33 @@ export const Slider = (props) => {
           max={max}
           step={step}
           data-highlight='true'
-        />
-        <div className='w-full text-2xl text-right'>{val}</div>
+        /> */}
+            <MaterialSlider
+              defaultValue={val}
+              onChange={handleSliderChange}
+              min={min}
+              max={max}
+              step={step}
+              valueLabelDisplay='auto'
+            />
+          </Grid>
+          <Grid item>
+            <Input
+              className='w-16 text-2xl text-right'
+              value={val}
+              margin='dense'
+              onChange={handleInputChange}
+              onBlur={handleBlur}
+              inputProps={{
+                step: step,
+                min: min,
+                max: max,
+                type: 'number',
+                'aria-labelledby': 'input-slider',
+              }}
+            />
+          </Grid>
+        </Grid>
       </div>
     </>
   );

@@ -37,8 +37,8 @@ export default function IndexPage() {
         />
         <link rel='icon' href='/VS.png' />
       </Head>
-      <div className='text-4xl text-center'>VSWR</div>
-      <div className='w-full pt-8'>
+      <div className='pt-4 text-4xl text-center font-extrabold'>VSWR</div>
+      <div className='w-full pt-8 p-4'>
         <Slider
           def={tx}
           label='進行波(W)'
@@ -69,11 +69,13 @@ export default function IndexPage() {
       >
         {anser}
       </div>
-      <div className='w-full text-center pt-10'>
-        <img
-          className='mx-auto'
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=100x100`}
-        />
+      <div className='fixed w-full text-center pt-10'>
+        <div class='fixed bottom-0 right-0 p-2'>
+          <img
+            className='mx-auto'
+            src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
+          />
+        </div>
       </div>
     </div>
   );
