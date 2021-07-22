@@ -21,7 +21,7 @@ export default function IndexPage() {
     if (location) {
       setQR(location.href);
     }
-  }, [location]);
+  }, []);
   return (
     <div className='continer'>
       <Head>
