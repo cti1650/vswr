@@ -10,15 +10,18 @@ export default function IndexPage() {
   const [rx, setRx] = useState(0);
   const [ans, setAns] = useState(0);
   const router = useRouter();
+  const [qr, setQR] = useState('');
   const anser = useMemo(() => {
     return (
       Math.round(((1 + Math.sqrt(rx / tx)) / (1 - Math.sqrt(rx / tx))) * 100) /
       100
     );
   }, [tx, rx]);
-  const qr = useMemo(() => {
-    return location.href;
-  }, []);
+  useEffect(() => {
+    if (location) {
+      setQR(location.href);
+    }
+  }, [location]);
   return (
     <div className='continer'>
       <Head>
