@@ -61,7 +61,7 @@ export default function IndexPage() {
       <div
         id='val'
         className={cc([
-          'py-16 text-6xl text-center font-bold',
+          'py-6 text-6xl text-center font-bold',
           {
             'text-yellow-600': anser < 3 && anser >= 1.5,
             'text-red-700': anser >= 3,
