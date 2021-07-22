@@ -37,7 +37,9 @@ export default function IndexPage() {
         />
         <link rel='icon' href='/VS.png' />
       </Head>
-      <div className='pt-4 text-4xl text-center font-extrabold'>VSWR</div>
+      <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
+        VSWR
+      </div>
       <div className='w-full pt-8 p-4'>
         <Slider
           def={tx}
@@ -59,7 +61,7 @@ export default function IndexPage() {
       <div
         id='val'
         className={cc([
-          'text-6xl text-center',
+          'py-16 text-6xl text-center font-bold',
           {
             'text-yellow-600': anser < 3 && anser >= 1.5,
             'text-red-700': anser >= 3,
