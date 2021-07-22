@@ -66,7 +66,7 @@ export default function IndexPage() {
       <div className='w-full text-center pt-10'>
         <img
           className='mx-auto'
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=${router.pathname}&size=100x100`}
+          src={`https://api.qrserver.com/v1/create-qr-code/?data=${router.basePath}&size=100x100`}
         />
       </div>
     </div>
