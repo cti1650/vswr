@@ -57,21 +57,24 @@ export default function IndexPage() {
             setRx(val);
           }}
         />
+
+        <div
+          className={cc([
+            'py-3 text-5xl text-center font-bold',
+            {
+              'text-yellow-600': anser < 3 && anser >= 1.5,
+              'text-red-700': anser >= 3,
+              'text-blue-700': anser < 1.5 && anser > 0,
+            },
+          ])}
+        >
+          {anser}
+        </div>
+        <div className='w-full h-16'>
+          <textarea className='w-full h-full p-1 shadow-inner rounded-lg'></textarea>
+        </div>
       </div>
-      <div
-        id='val'
-        className={cc([
-          'py-6 text-6xl text-center font-bold',
-          {
-            'text-yellow-600': anser < 3 && anser >= 1.5,
-            'text-red-700': anser >= 3,
-            'text-blue-700': anser < 1.5 && anser > 0,
-          },
-        ])}
-      >
-        {anser}
-      </div>
-      <div className='fixed w-full text-center pt-10'>
+      <div className='fixed w-full text-center'>
         <div class='fixed bottom-0 right-0 p-2'>
           <img
             className='mx-auto'
