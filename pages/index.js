@@ -21,7 +21,7 @@ export default function IndexPage() {
         100 || 0
     );
   }, [tx, rx]);
-  const handleClickSave = useCallback(() => {
+  const handleClickSave = () => {
     const day = new Date();
     setKeep((prev) => [
       ...prev,
@@ -33,7 +33,15 @@ export default function IndexPage() {
         desc: descEl.current.value,
       },
     ]);
-  }, [keep]);
+  };
+  const handleClickDelete = (index) => {
+    setKeep((prev) => {
+      if (prev && prev.length === 0) return prev;
+      return prev.filter((val, n) => {
+        return n !== index;
+      });
+    });
+  };
   useEffect(() => {
     if (location) {
       setQR(location.href);
@@ -119,12 +127,7 @@ export default function IndexPage() {
                       <button
                         className='my-auto p-3'
                         onClick={() => {
-                          setKeep((prev) => {
-                            if (prev && prev.length === 0) return prev;
-                            return prev.filter((val, n) => {
-                              return n !== index;
-                            });
-                          });
+                          handleClickDelete(index);
                         }}
                       >
                         <FontAwesomeIcon
