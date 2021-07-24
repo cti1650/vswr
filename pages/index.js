@@ -42,7 +42,6 @@ export default function IndexPage() {
   return (
     <div className='continer'>
       <Head>
-        <link rel='apple-touch-icon' href='VSWR.png' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
         <meta name='apple-mobile-web-app-title' content='VSWR' />

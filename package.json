@@ -17,6 +17,7 @@
     "autoprefixer": "10.3.1",
     "classcat": "^5.0.3",
     "next": "latest",
+    "next-pwa": "^5.2.24",
     "postcss": "^8.3.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",

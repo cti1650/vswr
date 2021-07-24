@@ -11,6 +11,8 @@ export default class MyDocument extends Document {
       <html lang='ja'>
         <Head>
           <style>{`body { margin: 0 } /* custom!*/`}</style>
+          <link rel='manifest' href='/manifest.webmanifest' />
+          <link rel='apple-touch-icon' href='VSWR.png' />
         </Head>
         <body className='custom_class w-full bg-gray-200'>
           <Main />
