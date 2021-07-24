@@ -1,14 +1,18 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { Slider } from '../src/components/slider/Slider';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { useLocalStorage } from '../src/hooks/useLocalStorage';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import cc from 'classcat';
 
 export default function IndexPage() {
   const [tx, setTx] = useState(0);
   const [rx, setRx] = useState(0);
-  const [ans, setAns] = useState(0);
+  const descEl = useRef(null);
+  const [keep, setKeep] = useLocalStorage('keep', []);
   const router = useRouter();
   const [qr, setQR] = useState('');
   const anser = useMemo(() => {
@@ -22,6 +26,7 @@ export default function IndexPage() {
       setQR(location.href);
     }
   }, []);
+  console.log(keep);
   return (
     <div className='continer'>
       <Head>
@@ -77,7 +82,72 @@ export default function IndexPage() {
           {anser}
         </div>
         <div className='w-full h-16'>
-          <textarea className='w-full h-full p-1 shadow-inner rounded-lg'></textarea>
+          <textarea
+            className='w-full h-full p-1 shadow-inner rounded-lg'
+            ref={descEl}
+          ></textarea>
+        </div>
+        <div className='w-full h-20 p-4'>
+          <button
+            className='w-full h-full rounded-lg bg-gray-300 border shadow'
+            onClick={() => {
+              const day = new Date();
+              setKeep((prev) => [
+                ...prev,
+                {
+                  time: day.toLocaleString('ja-JP'),
+                  tx: tx,
+                  rx: rx,
+                  anser: anser,
+                  desc: descEl.current.value,
+                },
+              ]);
+            }}
+          >
+            保存
+          </button>
+        </div>
+        <div>
+          {keep &&
+            keep.map((item, index) => {
+              return (
+                <div key={index} className='flex flex-row'>
+                  <div className='flex flex-row'>
+                    <div>
+                      <button
+                        className='my-auto p-3'
+                        onClick={() => {
+                          setKeep((prev) => {
+                            if (prev && prev.length === 0) return prev;
+                            return prev.filter((val, n) => {
+                              return n !== index;
+                            });
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className='text-gray-600'
+                        />
+                      </button>
+                    </div>
+                    <div className='flex flex-col'>
+                      <div className='text-xs text-gray-500'>
+                        <div>{item.time}</div>
+                      </div>
+                      <div className='flex flex-row space-x-2 pl-4'>
+                        <div>進行波:{item.tx}W</div>
+                        <div>反射波:{item.rx}W</div>
+                        <div>VSWR値:{item.anser}</div>
+                      </div>
+                      <div className='pl-4'>
+                        <div>{item.desc}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
