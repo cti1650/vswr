@@ -14,7 +14,7 @@ export default function IndexPage() {
   const anser = useMemo(() => {
     return (
       Math.round(((1 + Math.sqrt(rx / tx)) / (1 - Math.sqrt(rx / tx))) * 100) /
-      100
+        100 || 0
     );
   }, [tx, rx]);
   useEffect(() => {
@@ -38,7 +38,13 @@ export default function IndexPage() {
         <link rel='icon' href='/VS.png' />
       </Head>
       <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
-        VSWR
+        <div>VSWR</div>
+        <div className='absolute top-0 right-0 p-2 h-full'>
+          <img
+            className='mx-auto h-14'
+            src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
+          />
+        </div>
       </div>
       <div className='container max-w-screen-sm mx-auto w-full pt-8 p-4'>
         <Slider
@@ -72,14 +78,6 @@ export default function IndexPage() {
         </div>
         <div className='w-full h-16'>
           <textarea className='w-full h-full p-1 shadow-inner rounded-lg'></textarea>
-        </div>
-      </div>
-      <div className='fixed w-full text-center'>
-        <div class='fixed bottom-0 right-0 p-2'>
-          <img
-            className='mx-auto'
-            src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
-          />
         </div>
       </div>
     </div>
