@@ -58,6 +58,7 @@ export default function IndexPage() {
         <div className='absolute top-0 right-0 p-2 h-full'>
           <img
             className='mx-auto h-14'
+            alt='qr-img'
             src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
           />
         </div>
@@ -93,9 +94,10 @@ export default function IndexPage() {
           {anser}
         </div>
         <div className='w-full h-auto'>
-          <label>備考</label>
+          <label for='desc'>備考</label>
           <textarea
             className='w-full h-16 p-1 shadow-inner rounded-lg'
+            id='desc'
             ref={descEl}
           ></textarea>
         </div>
