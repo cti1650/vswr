@@ -17,7 +17,6 @@ export const Slider = (props) => {
   } = props;
   const [val, setVal] = useState(def);
   const handleSliderChange = useCallback((e, val) => {
-    console.log(val);
     setVal(val);
   }, []);
   const handleInputChange = useCallback((event) => {
@@ -53,7 +52,8 @@ export const Slider = (props) => {
           data-highlight='true'
         /> */}
             <MaterialSlider
-              defaultValue={val}
+              defaultValue={def}
+              value={val}
               onChange={handleSliderChange}
               min={min}
               max={max}

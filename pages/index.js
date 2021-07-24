@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { Slider } from '../src/components/slider/Slider';
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useLocalStorage } from '../src/hooks/useLocalStorage';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,12 +21,24 @@ export default function IndexPage() {
         100 || 0
     );
   }, [tx, rx]);
+  const handleClickSave = useCallback(() => {
+    const day = new Date();
+    setKeep((prev) => [
+      ...prev,
+      {
+        time: day.toLocaleString('ja-JP'),
+        tx: tx,
+        rx: rx,
+        anser: anser,
+        desc: descEl.current.value,
+      },
+    ]);
+  }, [keep]);
   useEffect(() => {
     if (location) {
       setQR(location.href);
     }
   }, []);
-  console.log(keep);
   return (
     <div className='continer'>
       <Head>
@@ -90,19 +102,7 @@ export default function IndexPage() {
         <div className='w-full h-20 p-4'>
           <button
             className='w-full h-full rounded-lg bg-gray-300 border shadow'
-            onClick={() => {
-              const day = new Date();
-              setKeep((prev) => [
-                ...prev,
-                {
-                  time: day.toLocaleString('ja-JP'),
-                  tx: tx,
-                  rx: rx,
-                  anser: anser,
-                  desc: descEl.current.value,
-                },
-              ]);
-            }}
+            onClick={handleClickSave}
           >
             保存
           </button>
