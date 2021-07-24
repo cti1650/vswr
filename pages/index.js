@@ -42,7 +42,7 @@ export default function IndexPage() {
   return (
     <div className='continer'>
       <Head>
-        <link rel='apple-touch-icon' href='VS.png' />
+        <link rel='apple-touch-icon' href='VSWR.png' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
         <meta name='apple-mobile-web-app-title' content='VSWR' />
@@ -52,7 +52,7 @@ export default function IndexPage() {
           name='viewport'
           content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0'
         />
-        <link rel='icon' href='/VS.png' />
+        <link rel='icon' href='/VSWR.png' />
       </Head>
       <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
         <div>VSWR</div>
@@ -93,9 +93,10 @@ export default function IndexPage() {
         >
           {anser}
         </div>
-        <div className='w-full h-16'>
+        <div className='w-full h-auto'>
+          <label>備考</label>
           <textarea
-            className='w-full h-full p-1 shadow-inner rounded-lg'
+            className='w-full h-16 p-1 shadow-inner rounded-lg'
             ref={descEl}
           ></textarea>
         </div>
