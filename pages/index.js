@@ -1,38 +1,15 @@
-import Link from 'next/link';
 import Head from 'next/head';
-import { Slider } from '../src/components/slider/Slider';
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocalStorage } from '../src/hooks/useLocalStorage';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter } from 'next/router';
-import cc from 'classcat';
+import { VSWRTool } from 'src/components/form/VSWRTool';
 
 export default function IndexPage() {
-  const [tx, setTx] = useState(0);
-  const [rx, setRx] = useState(0);
-  const descEl = useRef(null);
   const [keep, setKeep] = useLocalStorage('keep', []);
-  const router = useRouter();
   const [qr, setQR] = useState('');
-  const anser = useMemo(() => {
-    return (
-      Math.round(((1 + Math.sqrt(rx / tx)) / (1 - Math.sqrt(rx / tx))) * 100) /
-        100 || 0
-    );
-  }, [tx, rx]);
-  const handleClickSave = () => {
-    const day = new Date();
-    setKeep((prev) => [
-      ...prev,
-      {
-        time: day.toLocaleString('ja-JP'),
-        tx: tx,
-        rx: rx,
-        anser: anser,
-        desc: descEl.current.value,
-      },
-    ]);
+  const handleClickSave = (item) => {
+    setKeep((prev) => [...prev, item]);
   };
   const handleClickDelete = (index) => {
     setKeep((prev) => {
@@ -64,59 +41,17 @@ export default function IndexPage() {
       <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
         <div>VSWR</div>
         <div className='absolute top-0 right-0 p-2 h-full'>
-          <img
-            className='mx-auto h-14'
-            alt='qr-img'
-            src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
-          />
+          <a href={qr} target='_blank'>
+            <img
+              className='mx-auto h-14'
+              alt='qr-img'
+              src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
+            />
+          </a>
         </div>
       </div>
       <div className='container max-w-screen-sm mx-auto w-full pt-8 p-4'>
-        <Slider
-          def={tx}
-          label='進行波(W)'
-          onChange={(val) => {
-            setTx(val);
-          }}
-        />
-        <Slider
-          def={rx}
-          label='反射波(W)'
-          max={4}
-          step={0.1}
-          onChange={(val) => {
-            setRx(val);
-          }}
-        />
-
-        <div
-          className={cc([
-            'py-3 text-5xl text-center font-bold',
-            {
-              'text-yellow-600': anser < 3 && anser >= 1.5,
-              'text-red-700': anser >= 3,
-              'text-blue-700': anser < 1.5 && anser > 0,
-            },
-          ])}
-        >
-          {anser}
-        </div>
-        <div className='w-full h-auto'>
-          <label for='desc'>備考</label>
-          <textarea
-            className='w-full h-16 p-1 shadow-inner rounded-lg'
-            id='desc'
-            ref={descEl}
-          ></textarea>
-        </div>
-        <div className='w-full h-20 p-4'>
-          <button
-            className='w-full h-full rounded-lg bg-gray-300 border shadow'
-            onClick={handleClickSave}
-          >
-            保存
-          </button>
-        </div>
+        <VSWRTool onClickSave={handleClickSave} />
         <div>
           {keep &&
             keep.map((item, index) => {
