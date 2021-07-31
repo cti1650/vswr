@@ -41,11 +41,13 @@ export default function IndexPage() {
       <div className='py-4 bg-gray-300 shadow-md text-gray-800 text-4xl text-center font-bold'>
         <div>VSWR</div>
         <div className='absolute top-0 right-0 p-2 h-full'>
-          <img
-            className='mx-auto h-14'
-            alt='qr-img'
-            src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
-          />
+          <a href={qr} target='_blank'>
+            <img
+              className='mx-auto h-14'
+              alt='qr-img'
+              src={`https://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=80x80`}
+            />
+          </a>
         </div>
       </div>
       <div className='container max-w-screen-sm mx-auto w-full pt-8 p-4'>
